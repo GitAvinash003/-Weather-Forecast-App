@@ -25,6 +25,7 @@ function fetchWeatherByCity(city) {
       return response.json();
     })
     .then(data => {
+        saveRecentCity(city);
       displayWeather(data);
     })
     .catch(error => {
@@ -44,6 +45,40 @@ function displayWeather(data) {
 }
 
 const currentLocBtn = document.getElementById("currentLocBtn");
+
+const recentCitiesDropdown = document.getElementById("recentCities");
+
+// Save city to localStorage
+function saveRecentCity(city) {
+  let cities = JSON.parse(localStorage.getItem("recentCities")) || [];
+  cities = cities.filter(c => c.toLowerCase() !== city.toLowerCase()); // Remove duplicate
+  cities.unshift(city); // Add to start
+  if (cities.length > 5) cities = cities.slice(0, 5); // Max 5 entries
+  localStorage.setItem("recentCities", JSON.stringify(cities));
+  updateDropdown();
+}
+
+// Load cities into dropdown
+function updateDropdown() {
+  const cities = JSON.parse(localStorage.getItem("recentCities")) || [];
+  recentCitiesDropdown.innerHTML = `<option value="">Recently Searched Cities</option>`;
+  cities.forEach(city => {
+    const option = document.createElement("option");
+    option.value = city;
+    option.textContent = city;
+    recentCitiesDropdown.appendChild(option);
+  });
+}
+
+// On dropdown change → fetch weather
+recentCitiesDropdown.addEventListener("change", () => {
+  const city = recentCitiesDropdown.value;
+  if (city) {
+    cityInput.value = city;
+    fetchWeatherByCity(city);
+  }
+});
+
 
 currentLocBtn.addEventListener("click", () => {
   if (navigator.geolocation) {
@@ -78,3 +113,5 @@ function fetchWeatherByCoordinates(lat, lon) {
       weatherDisplay.innerHTML = `<p class="text-red-500">${error.message}</p>`;
     });
 }
+
+updateDropdown(); // Load on page load
