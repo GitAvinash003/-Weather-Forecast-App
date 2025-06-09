@@ -1,5 +1,7 @@
 # Weather Forecast Application
 
+###  **Repo Name :-**  https://github.com/GitAvinash003/-Weather-Forecast-App.git
+
 This is a weather forecast web application developed with JavaScript, HTML, CSS (Tailwind CSS). It fetches current weather and 5-day forecasts from the OpenWeatherMap API.
 #Weather Api work till 23 june 2025.
 
@@ -16,8 +18,6 @@ This is a weather forecast web application developed with JavaScript, HTML, CSS 
 ## Setup
 
 1. Clone the repository:
-
-
 2. Open `index.html` in your browser.
 3. Ensure you have a valid API key for OpenWeatherMap in `script.js`.
 
