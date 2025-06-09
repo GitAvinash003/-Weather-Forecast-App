@@ -27,6 +27,8 @@ function fetchWeatherByCity(city) {
     .then(data => {
         saveRecentCity(city);
       displayWeather(data);
+      fetchExtendedForecast(city);
+
     })
     .catch(error => {
       weatherDisplay.innerHTML = `<p class="text-red-500">${error.message}</p>`;
@@ -115,3 +117,44 @@ function fetchWeatherByCoordinates(lat, lon) {
 }
 
 updateDropdown(); // Load on page load
+
+function fetchExtendedForecast(city) {
+  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      displayForecast(data.list);
+    })
+    .catch(() => {
+      document.getElementById("forecast").innerHTML = "<p class='text-red-500'>Failed to load forecast data</p>";
+    });
+}
+
+function displayForecast(forecastList) {
+  const forecastContainer = document.getElementById("forecast");
+  forecastContainer.innerHTML = "";
+
+  // Filter 12:00 PM data for each day
+  const dailyForecasts = forecastList.filter(entry => entry.dt_txt.includes("12:00:00"));
+
+  dailyForecasts.forEach(day => {
+    const date = new Date(day.dt_txt).toLocaleDateString("en-IN", {
+      weekday: "short", month: "short", day: "numeric"
+    });
+
+    const icon = day.weather[0].icon;
+    const description = day.weather[0].description;
+
+    forecastContainer.innerHTML += `
+      <div class="bg-white p-4 rounded-xl shadow text-center">
+        <h3 class="font-semibold text-lg">${date}</h3>
+        <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}" class="mx-auto">
+        <p class="capitalize">${description}</p>
+        <p>🌡️ ${day.main.temp}°C</p>
+        <p>💧 ${day.main.humidity}%</p>
+        <p>💨 ${day.wind.speed} m/s</p>
+      </div>
+    `;
+  });
+}
