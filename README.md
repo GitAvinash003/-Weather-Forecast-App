@@ -1,6 +1,7 @@
 # Weather Forecast Application
 
 This is a weather forecast web application developed with JavaScript, HTML, CSS (Tailwind CSS). It fetches current weather and 5-day forecasts from the OpenWeatherMap API.
+#Weather Api work till 23 june 2025.
 
 ## Features
 
