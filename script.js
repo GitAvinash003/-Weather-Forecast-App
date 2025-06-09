@@ -15,24 +15,29 @@ searchBtn.addEventListener("click", () => {
 });
 
 function fetchWeatherByCity(city) {
+     if (!city || city.trim() === "") {
+  weatherDisplay.innerHTML = `<p class="text-red-500">Please enter a valid city name.</p>`;
+  return;
+}
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
-  fetch(apiUrl)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("City not found");
-      }
-      return response.json();
-    })
-    .then(data => {
-        saveRecentCity(city);
-      displayWeather(data);
-      fetchExtendedForecast(city);
 
-    })
-    .catch(error => {
-      weatherDisplay.innerHTML = `<p class="text-red-500">${error.message}</p>`;
-    });
+  fetch(apiUrl)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("City not found. Please enter a valid city.");
+    }
+    return response.json();
+  })
+  .then(data => {
+    displayWeather(data);
+    saveRecentCity(city);
+    fetchExtendedForecast(city);
+  })
+  .catch(error => {
+    weatherDisplay.innerHTML = `<p class="text-red-500">${error.message}</p>`;
+  });
+
 }
 
 function displayWeather(data) {
@@ -122,7 +127,13 @@ function fetchExtendedForecast(city) {
   const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
 
   fetch(url)
-    .then(res => res.json())
+    .then(res => {
+  if (!res.ok) {
+    throw new Error("Failed to fetch forecast.");
+  }
+  return res.json();
+})
+
     .then(data => {
       displayForecast(data.list);
     })
