@@ -1,68 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Forecast Application</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weather Forecast Application</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
-    <body class="bg-gray-100 text-gray-900 min-h-screen flex items-center justify-center">
-  <div class="container max-w-md bg-white p-6 rounded-lg shadow-lg">
-    <h1 class="text-2xl font-bold mb-4 text-center">Weather Forecast App</h1>
- <p class="text-gray-500 text-center mt-4">Search for a city to get started.</p>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+  <div class="max-w-md w-full bg-white rounded-xl shadow-lg p-6">
+    <h1 class="text-3xl font-bold mb-6 text-center">Weather Forecast App</h1>
 
-     <!-- Recently Searched Dropdown -->
-<div class="mb-4">
-  <select id="recentCities" class="w-full px-3 py-2 border rounded">
-    <option value="">Recently Searched Cities</option>
-  </select>
-</div>
+    <!-- Input and Buttons -->
+    <div class="mb-4">
+      <input
+        id="cityInput"
+        type="text"
+        placeholder="Enter city name"
+        class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+      />
+    </div>
 
+    <div class="flex space-x-3 mb-6">
+      <button
+        id="searchBtn"
+        class="flex-1 bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition"
+      >
+        Search Weather
+      </button>
+      <button
+        id="currentLocBtn"
+        class="flex-1 bg-green-600 text-white p-3 rounded-md hover:bg-green-700 transition"
+      >
+        Current Location Weather
+      </button>
+    </div>
 
-     <!-- Search by city -->
-<div class="mb-4">
-  <input
-    type="text"
-    id="cityInput"
-    placeholder="Enter city name"
-    class="w-full px-3 py-2 border rounded"
-  />
-</div>
+    <!-- Recently searched cities dropdown -->
+    <div class="mb-6">
+      <select
+        id="recentCities"
+        class="w-full p-3 border rounded-md bg-white cursor-pointer"
+      >
+        <option value="">Recently Searched Cities</option>
+      </select>
+    </div>
 
+    <!-- Weather Display -->
+    <div id="weatherDisplay" class="text-center mb-6"></div>
 
-
-<!-- Buttons -->
-<div class="flex justify-between mb-6">
-  <button
-    id="searchBtn"
-    class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-  >
-    Search Weather
-  </button>
-  <button
-    id="currentLocBtn"
-    class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-  >
-    Current Location Weather
-  </button>
-</div>
-
-<!-- Weather Display -->
-<div id="weatherDisplay" class="text-center">
-  <!-- Weather info will show here -->
-</div>
-
-<!-- Forecast Display -->
-<div id="forecastDisplay" class="mt-6 grid grid-cols-1 gap-4">
-  <!-- Forecast cards will show here -->
-</div>
-
+    <!-- Extended Forecast Display -->
+    <div
+      id="forecast"
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
+    ></div>
   </div>
 
-  <!-- Extended Forecast -->
-<div id="forecast" class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"></div>
-
+  <script src="script.js"></script>
 </body>
-<script src="script.js"></script>
 </html>
