@@ -1,61 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Weather Forecast Application</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
-  <div class="max-w-md w-full bg-white rounded-xl shadow-lg p-6">
-    <h1 class="text-3xl font-bold mb-6 text-center">Weather Forecast App</h1>
+<html lang="en" class="h-full w-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Weather Forecast App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
 
-    <!-- Input and Buttons -->
-    <div class="mb-4">
-      <input
-        id="cityInput"
-        type="text"
-        placeholder="Enter city name"
-        class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-      />
+  <body class="h-full w-full bg-gradient-to-br from-blue-500 to-purple-600 text-gray-800">
+    <div class="min-h-screen w-full flex flex-col items-center justify-start py-6 px-4 sm:px-8">
+      <div class="w-full max-w-4xl bg-white bg-opacity-90 rounded-xl p-6 shadow-lg overflow-y-auto">
+
+        <!-- Title -->
+        <h1 class="text-3xl sm:text-4xl font-bold text-center mb-6">🌤️ Weather Forecast App</h1>
+
+        <!-- Search Box -->
+        <div class="flex flex-col sm:flex-row gap-3 mb-4">
+          <input
+            id="cityInput"
+            type="text"
+            placeholder="Enter city name"
+            class="flex-grow px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            id="searchBtn"
+            class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+          >
+            Search
+          </button>
+        </div>
+
+        <!-- Location Button -->
+        <button
+          id="currentLocBtn"
+          class="w-full mb-6 bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition"
+        >
+          📍 Use Current Location
+        </button>
+
+        <!-- Dropdown for Recently Searched -->
+        <select
+          id="recentCities"
+          class="w-full mb-6 p-2 border rounded-md"
+        >
+          <option value="">Recently Searched Cities</option>
+        </select>
+
+        <!-- Current Weather -->
+        <div id="weatherDisplay" class="text-center mb-6"></div>
+
+        <!-- Forecast Cards -->
+        <div id="forecast" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+
+      </div>
     </div>
 
-    <div class="flex space-x-3 mb-6">
-      <button
-        id="searchBtn"
-        class="flex-1 bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition"
-      >
-        Search Weather
-      </button>
-      <button
-        id="currentLocBtn"
-        class="flex-1 bg-green-600 text-white p-3 rounded-md hover:bg-green-700 transition"
-      >
-        Current Location Weather
-      </button>
-    </div>
-
-    <!-- Recently searched cities dropdown -->
-    <div class="mb-6">
-      <select
-        id="recentCities"
-        class="w-full p-3 border rounded-md bg-white cursor-pointer"
-      >
-        <option value="">Recently Searched Cities</option>
-      </select>
-    </div>
-
-    <!-- Weather Display -->
-    <div id="weatherDisplay" class="text-center mb-6"></div>
-
-    <!-- Extended Forecast Display -->
-    <div
-      id="forecast"
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
-    ></div>
-  </div>
-
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
