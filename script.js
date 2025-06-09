@@ -42,3 +42,39 @@ function displayWeather(data) {
     <p>💨 Wind: ${wind.speed} m/s</p>
   `;
 }
+
+const currentLocBtn = document.getElementById("currentLocBtn");
+
+currentLocBtn.addEventListener("click", () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = position.coords;
+        fetchWeatherByCoordinates(latitude, longitude);
+      },
+      error => {
+        alert("Failed to get your location. Please allow location access.");
+      }
+    );
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+});
+
+function fetchWeatherByCoordinates(lat, lon) {
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+  fetch(apiUrl)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Failed to fetch weather for your location.");
+      }
+      return response.json();
+    })
+    .then(data => {
+      displayWeather(data);
+    })
+    .catch(error => {
+      weatherDisplay.innerHTML = `<p class="text-red-500">${error.message}</p>`;
+    });
+}
