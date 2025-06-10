@@ -153,14 +153,34 @@ function saveRecentCity(city) {
 // Load recent cities dropdown from localStorage
 function updateDropdown() {
   const cities = JSON.parse(localStorage.getItem("recentCities")) || [];
-  recentCitiesDropdown.innerHTML = `<option value="">Recently Searched Cities</option>`;
-  cities.forEach((city) => {
-    const option = document.createElement("option");
-    option.value = city;
-    option.textContent = city;
-    recentCitiesDropdown.appendChild(option);
-  });
+
+  // If cities are present, show dropdown. Otherwise, hide it.
+  if (cities.length > 0) {
+    recentCitiesDropdown.classList.remove("hidden");
+    recentCitiesDropdown.innerHTML = `<option value="">Recently Searched Cities</option>`;
+    cities.forEach((city) => {
+      const option = document.createElement("option");
+      option.value = city;
+      option.textContent = city;
+      recentCitiesDropdown.appendChild(option);
+    });
+  } else {
+    recentCitiesDropdown.classList.add("hidden");
+  }
 }
+
+
+// function updateDropdown() {
+  
+//   const cities = JSON.parse(localStorage.getItem("recentCities")) || [];
+//   recentCitiesDropdown.innerHTML = `<option value="">Recently Searched Cities</option>`;
+//   cities.forEach((city) => {
+//     const option = document.createElement("option");
+//     option.value = city;
+//     option.textContent = city;
+//     recentCitiesDropdown.appendChild(option);
+//   });
+// }
 
 // Clear weather and forecast display areas before new fetch
 function clearDisplays() {
